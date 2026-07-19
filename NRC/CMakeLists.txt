@@ -1,0 +1,73 @@
+set(TARGET_NAME Moer-NRC)
+
+file(GLOB_RECURSE NRC_HEADERS CONFIGURE_DEPENDS "include/*.h")
+file(GLOB_RECURSE NRC_SOURCES CONFIGURE_DEPENDS "src/*.cpp")
+list(FILTER NRC_SOURCES EXCLUDE REGEX ".*/NRCCollectMain\\.cpp$")
+list(FILTER NRC_SOURCES EXCLUDE REGEX ".*/NRCRenderMain\\.cpp$")
+list(FILTER NRC_SOURCES EXCLUDE REGEX ".*/NRCFirstHitMain\\.cpp$")
+
+set(CORE_TARGET_NAME Moer-Core-NRC)
+file(GLOB_RECURSE CORE_HEADERS CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/src/*.h")
+file(GLOB_RECURSE CORE_SOURCES CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/src/*.cpp")
+list(REMOVE_ITEM CORE_SOURCES "${PROJECT_SOURCE_DIR}/src/main.cpp")
+
+add_library(${CORE_TARGET_NAME} STATIC ${CORE_HEADERS} ${CORE_SOURCES})
+target_include_directories(${CORE_TARGET_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(${CORE_TARGET_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/ext/FastMath)
+target_include_directories(${CORE_TARGET_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/ext)
+target_link_libraries(${CORE_TARGET_NAME} PUBLIC Moer-ext)
+find_package(Threads)
+target_link_libraries(${CORE_TARGET_NAME} PUBLIC ${CMAKE_THREAD_LIBS_INIT})
+if (NOT MSVC)
+    find_package(OpenMP REQUIRED)
+    target_link_libraries(${CORE_TARGET_NAME} PUBLIC OpenMP::OpenMP_CXX)
+endif()
+
+add_library(${TARGET_NAME} STATIC ${NRC_HEADERS} ${NRC_SOURCES})
+target_include_directories(${TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(${TARGET_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(${TARGET_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/ext/FastMath)
+target_include_directories(${TARGET_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/ext)
+
+target_link_libraries(${TARGET_NAME} PUBLIC Moer-ext ${CORE_TARGET_NAME})
+
+foreach(target_name IN ITEMS ${CORE_TARGET_NAME} ${TARGET_NAME})
+    if (MESH_LOADER STREQUAL "Assimp")
+        target_compile_definitions(${target_name} PRIVATE MESH_LOADER_ASSIMP)
+    elseif (MESH_LOADER STREQUAL "Tinyobjloader")
+        target_compile_definitions(${target_name} PRIVATE MESH_LOADER_TINYOBJ)
+    endif()
+
+    if (USE_SAMPLED_SPECTRUM)
+        target_compile_definitions(${target_name} PRIVATE USING_SAMPLED_SPECTRUM)
+    endif()
+
+    if(ENABLE_GPISMEDIUM)
+        target_compile_definitions(${target_name} PRIVATE ENABLE_GPISMEDIUM)
+    endif()
+
+    target_compile_definitions(${target_name} PRIVATE CMAKE_DEF_SPECTRUM_SAMPLES=60)
+endforeach()
+
+add_executable(Moer-NRC-Collect src/NRCCollectMain.cpp)
+target_include_directories(Moer-NRC-Collect PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(Moer-NRC-Collect PRIVATE ${TARGET_NAME})
+
+add_executable(Moer-NRC-Render src/NRCRenderMain.cpp)
+target_include_directories(Moer-NRC-Render PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(Moer-NRC-Render PRIVATE ${TARGET_NAME})
+
+add_executable(Moer-NRC-FirstHit src/NRCFirstHitMain.cpp)
+target_include_directories(Moer-NRC-FirstHit PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(Moer-NRC-FirstHit PRIVATE ${TARGET_NAME})
+
+set_target_properties(${CORE_TARGET_NAME} PROPERTIES DEBUG_POSTFIX "_d")
+set_target_properties(${CORE_TARGET_NAME} PROPERTIES RELEASE_POSTFIX "_r")
+set_target_properties(${TARGET_NAME} PROPERTIES DEBUG_POSTFIX "_d")
+set_target_properties(${TARGET_NAME} PROPERTIES RELEASE_POSTFIX "_r")
+set_target_properties(Moer-NRC-Collect PROPERTIES DEBUG_POSTFIX "_d")
+set_target_properties(Moer-NRC-Collect PROPERTIES RELEASE_POSTFIX "_r")
+set_target_properties(Moer-NRC-Render PROPERTIES DEBUG_POSTFIX "_d")
+set_target_properties(Moer-NRC-Render PROPERTIES RELEASE_POSTFIX "_r")
+set_target_properties(Moer-NRC-FirstHit PROPERTIES DEBUG_POSTFIX "_d")
+set_target_properties(Moer-NRC-FirstHit PROPERTIES RELEASE_POSTFIX "_r")

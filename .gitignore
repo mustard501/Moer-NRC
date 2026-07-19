@@ -1,0 +1,14 @@
+build
+build-preview
+target
+.cache
+.vs*
+NJUCG.mdj
+cmake-build*
+.idea
+./doxygen-doc
+scenes/**/*.hdr
+tiny-cuda-nn
+NRC/runtime
+NRC/report
+results

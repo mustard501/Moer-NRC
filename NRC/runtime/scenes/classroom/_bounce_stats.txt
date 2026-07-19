@@ -1,0 +1,95 @@
+# NRC bounce sample counts (after write-time keep/drop)
+# written = kept samples, candidates = before keep/drop
+# out_of_aabb_dropped = candidates rejected by fixed mesh OBJ AABB
+# max_bounce_record=8 global_keep=0.25
+# bounce_keep_probs=1,0.5,0.25,0.25,0.1,0.1,0.1,0.1
+
+[view 0] file=_view_0.bin written=1282914 candidates=22776568 out_of_aabb_dropped=0
+  bounce 1: written=597536 candidates=2386519
+  bounce 2: written=279680 candidates=2238955
+  bounce 3: written=129033 candidates=2064387
+  bounce 4: written=119121 candidates=1916617
+  bounce 5: written=44688 candidates=1772514
+  bounce 6: written=40801 candidates=1636894
+  bounce 7: written=37855 candidates=1505396
+  bounce 8: written=34200 candidates=1378976
+  bounce 9: written=0 candidates=1256263
+  bounce 10: written=0 candidates=1137485
+  bounce 11: written=0 candidates=1021823
+  bounce 12: written=0 candidates=910602
+  bounce 13: written=0 candidates=801473
+  bounce 14: written=0 candidates=695209
+  bounce 15: written=0 candidates=590936
+  bounce 16: written=0 candidates=489487
+  bounce 17: written=0 candidates=389452
+  bounce 18: written=0 candidates=291018
+  bounce 19: written=0 candidates=194678
+  bounce 20: written=0 candidates=97884
+
+[view 1] file=_view_1.bin written=1222051 candidates=22038945 out_of_aabb_dropped=0
+  bounce 1: written=564461 candidates=2262097
+  bounce 2: written=266291 candidates=2134737
+  bounce 3: written=123740 candidates=1980401
+  bounce 4: written=115058 candidates=1846565
+  bounce 5: written=43091 candidates=1713726
+  bounce 6: written=39712 candidates=1586806
+  bounce 7: written=36394 candidates=1462902
+  bounce 8: written=33304 candidates=1342706
+  bounce 9: written=0 candidates=1225524
+  bounce 10: written=0 candidates=1111552
+  bounce 11: written=0 candidates=999649
+  bounce 12: written=0 candidates=890661
+  bounce 13: written=0 candidates=784551
+  bounce 14: written=0 candidates=680944
+  bounce 15: written=0 candidates=579102
+  bounce 16: written=0 candidates=479762
+  bounce 17: written=0 candidates=382478
+  bounce 18: written=0 candidates=286584
+  bounce 19: written=0 candidates=191601
+  bounce 20: written=0 candidates=96597
+
+[view 2] file=_view_2.bin written=1273264 candidates=22793904 out_of_aabb_dropped=0
+  bounce 1: written=589573 candidates=2360315
+  bounce 2: written=276640 candidates=2214801
+  bounce 3: written=129055 candidates=2060322
+  bounce 4: written=119896 candidates=1914666
+  bounce 5: written=44252 candidates=1776448
+  bounce 6: written=40937 candidates=1642397
+  bounce 7: written=37780 candidates=1512373
+  bounce 8: written=35131 candidates=1386782
+  bounce 9: written=0 candidates=1264050
+  bounce 10: written=0 candidates=1145036
+  bounce 11: written=0 candidates=1028559
+  bounce 12: written=0 candidates=915881
+  bounce 13: written=0 candidates=806398
+  bounce 14: written=0 candidates=699255
+  bounce 15: written=0 candidates=594170
+  bounce 16: written=0 candidates=491816
+  bounce 17: written=0 candidates=391883
+  bounce 18: written=0 candidates=293448
+  bounce 19: written=0 candidates=196280
+  bounce 20: written=0 candidates=99024
+
+[view 3] file=_view_3.bin written=1294942 candidates=23455960 out_of_aabb_dropped=0
+  bounce 1: written=593022 candidates=2367193
+  bounce 2: written=282222 candidates=2255112
+  bounce 3: written=131895 candidates=2112871
+  bounce 4: written=123781 candidates=1976145
+  bounce 5: written=46025 candidates=1838034
+  bounce 6: written=42599 candidates=1702999
+  bounce 7: written=39346 candidates=1569308
+  bounce 8: written=36052 candidates=1438582
+  bounce 9: written=0 candidates=1311159
+  bounce 10: written=0 candidates=1187077
+  bounce 11: written=0 candidates=1066413
+  bounce 12: written=0 candidates=948704
+  bounce 13: written=0 candidates=833580
+  bounce 14: written=0 candidates=722049
+  bounce 15: written=0 candidates=613497
+  bounce 16: written=0 candidates=507014
+  bounce 17: written=0 candidates=402889
+  bounce 18: written=0 candidates=301467
+  bounce 19: written=0 candidates=201041
+  bounce 20: written=0 candidates=100826
+
+[summary] views=4 written_total=5073171 candidates_total=91065377
